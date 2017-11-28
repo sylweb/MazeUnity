@@ -10,12 +10,15 @@ public class BallController : MonoBehaviour {
 	private Rigidbody body;
 	private bool canJump=true;
 
-
 	void Start ()
 	{
 		body = GetComponent<Rigidbody>();
-
+		foreach(GameObject floorPiece in GameObject.FindGameObjectsWithTag ("floor_piece"))
+		{
+			floorPiece.GetComponent<Renderer> ().enabled = false;;
+		}
 		canJump = true;
+	
 	}
 
 
@@ -50,17 +53,34 @@ public class BallController : MonoBehaviour {
 
 		//reset ball position when player falls
 		if (transform.position.y < -10) {
-			Vector3 orig = new Vector3 (0.0f, 0.5f, 0.0f);
-			transform.position = orig;
-			body = GetComponent<Rigidbody>();
+			resetPosition ();
 		}
+	}
+
+	void resetPosition() {
+		body.velocity = Vector3.zero;
+		body.angularVelocity = Vector3.zero;
+		body.inertiaTensorRotation = Quaternion.identity;
+		body.inertiaTensor = Vector3.zero;
+		body.isKinematic = true;
+		body.isKinematic = false;
+		Vector3 orig = new Vector3 (0.0f, 0.5f, 0.0f);
+		transform.position = orig;
 	}
 
 	void OnCollisionEnter (Collision col)
 	{
+		//If it's floor
 		if(col.gameObject.tag == "floor_piece")
 		{
 			canJump = true;
+		}
+
+		//If it's a collactable 
+		if (col.gameObject.tag == "collectable") {
+			float posX = Random.Range(-9.0f,7.0f);
+			float posZ = Random.Range(-9.0f,7.0f);
+			col.gameObject.GetComponent<Transform> ().position = new Vector3 (posX, -0.5f, posZ);
 		}
 	}
 }

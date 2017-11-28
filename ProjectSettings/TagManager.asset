@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - floor_piece
+  - collectable
   layers:
   - Default
   - TransparentFX

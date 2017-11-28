@@ -53,6 +53,7 @@
   <ItemGroup>
      <Compile Include="Assets\scripts\BallController.cs" />
      <Compile Include="Assets\scripts\MainCameraController.cs" />
+     <None Include="Assets\ErbGameArt\Shaders\Beam.shader" />
  <Reference Include="UnityEngine.UIAutomation">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/UIAutomation/UnityEngine.UIAutomation.dll</HintPath>
  </Reference>
