@@ -13,10 +13,10 @@ public class BallController : MonoBehaviour {
 	void Start ()
 	{
 		body = GetComponent<Rigidbody>();
-		foreach(GameObject floorPiece in GameObject.FindGameObjectsWithTag ("floor_piece"))
+		/*foreach(GameObject floorPiece in GameObject.FindGameObjectsWithTag ("floor_piece"))
 		{
 			floorPiece.GetComponent<Renderer> ().enabled = false;;
-		}
+		}*/
 		canJump = true;
 	
 	}
@@ -79,9 +79,32 @@ public class BallController : MonoBehaviour {
 
 	void OnTriggerEnter(Collider other) {
 		if (other.gameObject.tag == "collectable") {
+
+			//Generate a new random position for the callectable
 			float posX = Random.Range(-9.0f,7.0f);
 			float posZ = Random.Range(-9.0f,7.0f);
 			other.gameObject.GetComponent<Transform> ().position = new Vector3 (posX, -0.5f, posZ);
+
+			bool foundOneToRemove = false;
+			do {
+				posX = Random.Range (-9.0f, 7.0f);
+				posZ = Random.Range (-9.0f, 7.0f);
+
+				foreach (GameObject floorPiece in GameObject.FindGameObjectsWithTag ("floor_piece")) {
+					if (floorPiece.GetComponent<Transform> ().transform.position.x > posX && floorPiece.GetComponent<Transform> ().transform.position.x < posX + 1) {
+						if (floorPiece.GetComponent<Transform> ().transform.position.z > posZ && floorPiece.GetComponent<Transform> ().transform.position.z < posZ + 1) {	
+
+							if(floorPiece.GetComponent<Renderer> ().enabled == true) {
+								floorPiece.GetComponent<Renderer> ().enabled = false;
+								floorPiece.GetComponent<Collider> ().enabled = false;
+								foundOneToRemove = true;
+							}
+							break;
+						}
+					}
+				}
+			} while(!foundOneToRemove);
+				
 		}
 	}
 }
