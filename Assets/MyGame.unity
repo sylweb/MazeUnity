@@ -17436,6 +17436,10 @@ Prefab:
       propertyPath: m_TagString
       value: collectable
       objectReference: {fileID: 0}
+    - target: {fileID: 1297806936328254, guid: 3bb5add2e8abbe846a63c34f5d0aca58, type: 2}
+      propertyPath: m_Name
+      value: GlowingOrb
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3bb5add2e8abbe846a63c34f5d0aca58, type: 2}
   m_IsPrefabParent: 0
@@ -29444,7 +29448,7 @@ SphereCollider:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2000921465}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.1537195

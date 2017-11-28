@@ -68,19 +68,20 @@ public class BallController : MonoBehaviour {
 		transform.position = orig;
 	}
 
-	void OnCollisionEnter (Collision col)
+	void OnCollisionEnter (Collision other)
 	{
 		//If it's floor
-		if(col.gameObject.tag == "floor_piece")
+		if(other.gameObject.tag == "floor_piece")
 		{
 			canJump = true;
-		}
+		} 
+	}
 
-		//If it's a collactable 
-		if (col.gameObject.tag == "collectable") {
+	void OnTriggerEnter(Collider other) {
+		if (other.gameObject.tag == "collectable") {
 			float posX = Random.Range(-9.0f,7.0f);
 			float posZ = Random.Range(-9.0f,7.0f);
-			col.gameObject.GetComponent<Transform> ().position = new Vector3 (posX, -0.5f, posZ);
+			other.gameObject.GetComponent<Transform> ().position = new Vector3 (posX, -0.5f, posZ);
 		}
 	}
 }

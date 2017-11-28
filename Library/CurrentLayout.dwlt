@@ -110,7 +110,7 @@ MonoBehaviour:
   m_MinSize: {x: 713, y: 492}
   m_MaxSize: {x: 18008, y: 14042}
   vertical: 0
-  controlID: 4261
+  controlID: 48404
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -134,7 +134,7 @@ MonoBehaviour:
   m_MinSize: {x: 202, y: 421}
   m_MaxSize: {x: 4002, y: 8021}
   vertical: 1
-  controlID: 4262
+  controlID: 48405
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -209,7 +209,7 @@ MonoBehaviour:
   m_MinSize: {x: 234, y: 492}
   m_MaxSize: {x: 10004, y: 14042}
   vertical: 1
-  controlID: 4302
+  controlID: 48490
 --- !u!114 &10
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -393,9 +393,9 @@ MonoBehaviour:
   m_isRotationLocked: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: -2.3189754, y: 4.0188866, z: -3.347498}
+    m_Target: {x: -1.0364274, y: 4.0188866, z: -1.971935}
     speed: 2
-    m_Value: {x: -2.3189754, y: 4.0188866, z: -3.347498}
+    m_Value: {x: -1.0364274, y: 4.0188866, z: -1.971935}
   m_RenderMode: 0
   m_ValidateTrueMetals: 0
   m_SceneViewState:
@@ -418,9 +418,9 @@ MonoBehaviour:
       speed: 2
       m_Value: 0
   m_Rotation:
-    m_Target: {x: 0.695343, y: 0.0010780203, z: -0.0010430232, w: 0.7186765}
+    m_Target: {x: -0.6953431, y: -0.0010780202, z: 0.0010430231, w: -0.71867645}
     speed: 2
-    m_Value: {x: -0.6953431, y: -0.0010780203, z: 0.0010430232, w: -0.7186765}
+    m_Value: {x: -0.69534314, y: -0.0010780202, z: 0.0010430231, w: -0.71867645}
   m_Size:
     m_Target: 25.146744
     speed: 2
@@ -489,9 +489,9 @@ MonoBehaviour:
     width: 282
     height: 326
   m_TreeViewState:
-    scrollPos: {x: 0, y: 5531}
-    m_SelectedIDs: 
-    m_LastClickedID: 0
+    scrollPos: {x: 0, y: 32}
+    m_SelectedIDs: 58d1feff
+    m_LastClickedID: -77480
     m_ExpandedIDs: a6fbffff00000000ba340000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -553,19 +553,19 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 0
     m_Folders:
-    - Assets/scripts
+    - Assets/ErbGameArt/Prefabs
   m_ViewMode: 1
   m_StartGridSize: 96
   m_LastFolders:
-  - Assets/scripts
+  - Assets/ErbGameArt/Prefabs
   m_LastFoldersGridSize: 96
   m_LastProjectPath: /Users/sylvain/Desktop/Unity/Projects/MazeProject
   m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 32280000
-    m_LastClickedID: 10290
-    m_ExpandedIDs: 000000001e27000012280000a2360000a4360000a6360000a8360000aa360000ac360000ae360000b036000000ca9a3bffffff7f
+    m_SelectedIDs: 7e800000
+    m_LastClickedID: 32894
+    m_ExpandedIDs: 000000001e27000012280000a2360000a4360000a6360000a8360000aa360000ac360000ae360000b03600007c80000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -593,7 +593,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 000000001e27000012280000a2360000a4360000a6360000a8360000aa360000ac360000ae360000b036000000ca9a3bffffff7f
+    m_ExpandedIDs: 000000001e27000012280000a2360000a4360000a6360000a8360000aa360000ac360000ae360000b03600007c80000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -645,7 +645,7 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
     m_NewAssetIndexInList: -1
-    m_ScrollPosition: {x: 0, y: 0}
+    m_ScrollPosition: {x: 0, y: 33}
     m_GridSize: 96
   m_DirectoriesAreaWidth: 110
 --- !u!114 &18
