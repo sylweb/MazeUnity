@@ -4,28 +4,32 @@ using UnityEngine;
 
 public class BallController : MonoBehaviour {
 
-	public float speed;
+
 	public float jump_max_force;
 
 	private Rigidbody body;
+	private float speed;
 	private bool canJump=true;
 
 	void Start ()
 	{
+		Screen.autorotateToLandscapeLeft = true;
+		Screen.autorotateToLandscapeRight = false;
+		Screen.autorotateToPortrait = false;
+		Screen.autorotateToPortraitUpsideDown = false;
 		body = GetComponent<Rigidbody>();
 		canJump = true;
+
+		if (SystemInfo.deviceType == DeviceType.Desktop) {
+			speed = 200.0f;
+		} else
+			speed = 300.0f;
+
 	}
 
 
 	void Update() {
-		if (Input.GetKeyDown(KeyCode.Space) && canJump == true) {
-			body.AddForce (0.0f, jump_max_force, 0.0f);
-			canJump = false;
-		}
-	}
-
-	void FixedUpdate ()
-	{
+		
 		if (SystemInfo.deviceType == DeviceType.Desktop) 
 		{ 
 			// Player movement in desktop devices
@@ -36,6 +40,11 @@ public class BallController : MonoBehaviour {
 			Vector3 movement = new Vector3 (moveHorizontal,0.0f,moveVertical);
 			// Adding force to rigidbody
 			body.AddForce(movement * speed * Time.deltaTime);
+
+			if (Input.GetKeyDown(KeyCode.Space) && canJump == true) {
+				body.AddForce (0.0f, jump_max_force, 0.0f);
+				canJump = false;
+			}
 		}
 		else
 		{
@@ -43,11 +52,11 @@ public class BallController : MonoBehaviour {
 			// Building of force vector 
 			Vector3 movement = new Vector3 (Input.acceleration.x, 0.0f, Input.acceleration.y);
 			// Adding force to rigidbody
-			body.AddForce(movement * speed);
+			body.AddForce(movement * speed * Time.deltaTime);
 		}
 
 		//reset ball position when player falls
-		if (transform.position.y < -10) {
+		if (transform.position.y < -5) {
 			resetPosition ();
 		}
 	}

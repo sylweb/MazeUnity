@@ -2,7 +2,7 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets/scripts/BallController.cs">
     <Files>
-      <File FileName="Assets/scripts/BallController.cs" Line="97" Column="66" />
+      <File FileName="Assets/scripts/BallController.cs" Line="89" Column="3" />
       <File FileName="Assets/scripts/MainCameraController.cs" Line="1" Column="1" />
       <File FileName="Assets/Editor/AssignMaterial.cs" Line="1" Column="1" />
     </Files>
