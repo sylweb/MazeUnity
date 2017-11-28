@@ -13,12 +13,7 @@ public class BallController : MonoBehaviour {
 	void Start ()
 	{
 		body = GetComponent<Rigidbody>();
-		/*foreach(GameObject floorPiece in GameObject.FindGameObjectsWithTag ("floor_piece"))
-		{
-			floorPiece.GetComponent<Renderer> ().enabled = false;;
-		}*/
 		canJump = true;
-	
 	}
 
 
@@ -48,7 +43,7 @@ public class BallController : MonoBehaviour {
 			// Building of force vector 
 			Vector3 movement = new Vector3 (Input.acceleration.x, 0.0f, Input.acceleration.y);
 			// Adding force to rigidbody
-			body.AddForce(movement * speed * Time.deltaTime);
+			body.AddForce(movement * speed);
 		}
 
 		//reset ball position when player falls
@@ -56,18 +51,7 @@ public class BallController : MonoBehaviour {
 			resetPosition ();
 		}
 	}
-
-	void resetPosition() {
-		body.velocity = Vector3.zero;
-		body.angularVelocity = Vector3.zero;
-		body.inertiaTensorRotation = Quaternion.identity;
-		body.inertiaTensor = Vector3.zero;
-		body.isKinematic = true;
-		body.isKinematic = false;
-		Vector3 orig = new Vector3 (0.0f, 0.5f, 0.0f);
-		transform.position = orig;
-	}
-
+		
 	void OnCollisionEnter (Collision other)
 	{
 		//If it's floor
@@ -85,26 +69,49 @@ public class BallController : MonoBehaviour {
 			float posZ = Random.Range(-9.0f,7.0f);
 			other.gameObject.GetComponent<Transform> ().position = new Vector3 (posX, -0.5f, posZ);
 
-			bool foundOneToRemove = false;
-			do {
-				posX = Random.Range (-9.0f, 7.0f);
-				posZ = Random.Range (-9.0f, 7.0f);
+			//Remove randomly 3 floor pieces
+			randomlyRemoveFloorPiece ();
+		}
+	}
 
-				foreach (GameObject floorPiece in GameObject.FindGameObjectsWithTag ("floor_piece")) {
-					if (floorPiece.GetComponent<Transform> ().transform.position.x > posX && floorPiece.GetComponent<Transform> ().transform.position.x < posX + 1) {
-						if (floorPiece.GetComponent<Transform> ().transform.position.z > posZ && floorPiece.GetComponent<Transform> ().transform.position.z < posZ + 1) {	
+	void resetPosition() {
+		body.velocity = Vector3.zero;
+		body.angularVelocity = Vector3.zero;
+		body.inertiaTensorRotation = Quaternion.identity;
+		body.inertiaTensor = Vector3.zero;
+		body.isKinematic = true;
+		body.isKinematic = false;
+		Vector3 orig = new Vector3 (0.0f, 0.5f, 0.0f);
+		transform.position = orig;
+	}
 
-							if(floorPiece.GetComponent<Renderer> ().enabled == true) {
-								floorPiece.GetComponent<Renderer> ().enabled = false;
-								floorPiece.GetComponent<Collider> ().enabled = false;
-								foundOneToRemove = true;
-							}
-							break;
+	void randomlyRemoveFloorPiece() {
+		
+		//Make one floor piece disapear
+		bool foundOneToRemove = false;
+		do {
+			float posX = Random.Range (-9.0f, 7.0f);
+			float posZ = Random.Range (-9.0f, 7.0f);
+
+			//We don't want to make the floor under the ball disapear
+			if (posX < transform.position.x && transform.position.x < posX + 1)
+				break;
+			if (posZ < transform.position.z && transform.position.z < posZ + 1)
+				break;
+
+			foreach (GameObject floorPiece in GameObject.FindGameObjectsWithTag ("floor_piece")) {
+				if (floorPiece.GetComponent<Transform> ().transform.position.x > posX && floorPiece.GetComponent<Transform> ().transform.position.x < posX + 1) {
+					if (floorPiece.GetComponent<Transform> ().transform.position.z > posZ && floorPiece.GetComponent<Transform> ().transform.position.z < posZ + 1) {	
+
+						if (floorPiece.GetComponent<Renderer> ().enabled == true) {
+							floorPiece.GetComponent<Renderer> ().enabled = false;
+							floorPiece.GetComponent<Collider> ().enabled = false;
+							foundOneToRemove = true;
 						}
+						break;
 					}
 				}
-			} while(!foundOneToRemove);
-				
-		}
+			}
+		} while(!foundOneToRemove);
 	}
 }
