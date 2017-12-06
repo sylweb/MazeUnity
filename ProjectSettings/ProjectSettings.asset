@@ -7,12 +7,12 @@ PlayerSettings:
   productGUID: 9dd1c01dd7eae4162ac21f3e7f11fd75
   AndroidProfiler: 0
   AndroidFilterTouchesWhenObscured: 0
-  defaultScreenOrientation: 4
+  defaultScreenOrientation: 2
   targetDevice: 2
   useOnDemandResources: 0
   accelerometerFrequency: 60
-  companyName: DefaultCompany
-  productName: MazeProject
+  companyName: sylweb
+  productName: maze
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
@@ -145,9 +145,11 @@ PlayerSettings:
   m_ColorGamuts: 00000000
   targetPixelDensity: 0
   resolutionScalingMode: 0
-  androidSupportedAspectRatio: 1
+  androidSupportedAspectRatio: 0
   androidMaxAspectRatio: 2.1
-  applicationIdentifier: {}
+  applicationIdentifier:
+    Android: com.sylweb.maze
+    iOS: com.unity.mazeproject
   buildNumber: {}
   AndroidBundleVersionCode: 1
   AndroidMinSdkVersion: 16
