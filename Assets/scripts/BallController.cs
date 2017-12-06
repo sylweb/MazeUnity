@@ -10,8 +10,7 @@ public class BallController : MonoBehaviour {
 	public float smoothing = 1.0f; 
 	private Vector3 offset;
 
-	private Ray shootRay;
-	public LineRenderer gunLine;
+	public LineRenderer directionToNextCoin;
 
 	GameObject[] floor;
 	GameObject coin;
@@ -22,9 +21,10 @@ public class BallController : MonoBehaviour {
 		offset = target.position - transform.position;
 		floor = GameObject.FindGameObjectsWithTag("floor_piece");
 		coin = GameObject.FindGameObjectWithTag ("collectable");
-		gunLine = GetComponent <LineRenderer> ();
-		gunLine.enabled = true;
-		gunLine.SetPosition (0, transform.position);
+		directionToNextCoin = GetComponent <LineRenderer> ();
+		directionToNextCoin.enabled = true;
+		directionToNextCoin.startColor = Color.green;
+		directionToNextCoin.endColor = Color.green;
 	}
 
 	void ResetGame() {
@@ -63,10 +63,9 @@ public class BallController : MonoBehaviour {
 		Vector3 targetCamPos = transform.position + offset;//
 		target.position = Vector3.Lerp (target.position, targetCamPos, smoothing);
 
-		gunLine.SetPosition (0, transform.position);
-		shootRay.origin = transform.position;
-		shootRay.direction = coin.transform.position;
-		gunLine.SetPosition (1, coin.transform.position);
+		//A ray that point to the next coin location
+		directionToNextCoin.SetPosition (0, transform.position);
+		directionToNextCoin.SetPosition (1, coin.transform.position);
 
 	}
 

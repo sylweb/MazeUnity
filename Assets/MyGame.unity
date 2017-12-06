@@ -14840,7 +14840,7 @@ MonoBehaviour:
   target: {fileID: 1000497453}
   speed: 500
   smoothing: 5
-  gunLine: {fileID: 0}
+  directionToNextCoin: {fileID: 0}
 --- !u!120 &1031473485
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -14855,7 +14855,7 @@ LineRenderer:
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: 8f72373be9bb22c4dbadd5f6ed6002b3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
