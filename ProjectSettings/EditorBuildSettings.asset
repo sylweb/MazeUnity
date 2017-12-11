@@ -8,3 +8,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/MyGame.unity
     guid: 5800b20d2c81c497eb4b15342046c9ab
+  - enabled: 0
+    path: Assets/pink.unity
+    guid: e2418f43a3d2d4290aad9fc815427af5

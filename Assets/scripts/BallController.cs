@@ -4,48 +4,56 @@ using UnityEngine;
 
 public class BallController : MonoBehaviour {
 
-	public Transform target;
-	private Rigidbody body;
-	public float speed;
-	public float smoothing = 1.0f; 
+	public Transform camPos;
+	public float smoothing;
+
+	private Rigidbody body; 
+	private LineRenderer directionToNextCoin;
 	private Vector3 offset;
 
-	public LineRenderer directionToNextCoin;
-
-	GameObject[] floor;
-	GameObject coin;
+	private GameObject[,] floor;
+	private GameObject coin;
+	private float speed;
 
 	// Use this for initialization
 	void Start () {
+		Application.targetFrameRate = 60;
+		Screen.sleepTimeout = SleepTimeout.NeverSleep;
 		this.body = GetComponent<Rigidbody> ();
-		offset = target.position - transform.position;
-		floor = GameObject.FindGameObjectsWithTag("floor_piece");
+		offset = camPos.position - transform.position;
+
+		GameObject[] temp = GameObject.FindGameObjectsWithTag("floor_piece");
+
+		floor = new GameObject[17,17];
+		for (int i = 0; i < temp.Length; i++) {
+			floor [(int)(temp [i].transform.position.x + 9),(int)(temp [i].transform.position.z + 9)] = temp [i];
+		}
+
 		coin = GameObject.FindGameObjectWithTag ("collectable");
 		directionToNextCoin = GetComponent <LineRenderer> ();
 		directionToNextCoin.enabled = true;
 		directionToNextCoin.startColor = Color.green;
 		directionToNextCoin.endColor = Color.green;
+		speed = 600.0f;
+		if (SystemInfo.deviceType == DeviceType.Handheld) speed = (speed * 70 / 100) + speed;
 	}
 
 	void ResetGame() {
-		for (int i = 0; i < floor.Length; i++) {
+		/*for (int i = 0; i < floor.Length; i++) {
 			floor [i].GetComponent<Renderer> ().enabled = true;
 			floor [i].GetComponent<Collider> ().enabled = true;
-		}
+		}*/
 
-		transform.position = new Vector3 (-0.75f,-0.5f,0.0f);
+		transform.position = new Vector3 (-1.0f,-0.5f,-2.0f);
 	}
 	
 	// Update is called once per frame
 	void Update () {
 
-		if (transform.position.y < -2)
-			ResetGame ();
+		if (Input.GetKeyDown(KeyCode.Escape)) 
+			Application.Quit(); 
 
 		if (SystemInfo.deviceType == DeviceType.Desktop) {
-
-			float xAxis = 0.0f;
-			float yAxis = 0.0f;
 
 			Vector3 vec = new Vector3 (Time.deltaTime * speed * Input.GetAxis ("Horizontal"), 0.0f, Time.deltaTime * speed * Input.GetAxis ("Vertical"));
 			this.body.AddForce (vec);
@@ -61,7 +69,7 @@ public class BallController : MonoBehaviour {
 			
 		// Smoothly interpolate between the camera's current position and it's target position.
 		Vector3 targetCamPos = transform.position + offset;//
-		target.position = Vector3.Lerp (target.position, targetCamPos, smoothing);
+		camPos.position = Vector3.Lerp (camPos.position, targetCamPos, smoothing);
 
 		//A ray that point to the next coin location
 		directionToNextCoin.SetPosition (0, transform.position);
@@ -69,19 +77,49 @@ public class BallController : MonoBehaviour {
 
 	}
 
+	void FixedUpdate() {
+
+		if (transform.position.y < -2)
+			ResetGame ();
+
+		if (SystemInfo.deviceType == DeviceType.Desktop) {
+
+			Vector3 vec = new Vector3 (Time.deltaTime * speed * Input.GetAxis ("Horizontal"), 0.0f, Time.deltaTime * speed * Input.GetAxis ("Vertical"));
+			this.body.AddForce (vec);
+		} else {
+			Vector3 dir = Vector3.zero;
+			dir.x = Input.acceleration.x;
+			dir.z = Input.acceleration.y;
+			if (dir.sqrMagnitude > 1) dir.Normalize ();
+
+			dir = dir * Time.deltaTime * speed;
+			this.body.AddForce (dir);
+		}
+	}
+
 	void OnTriggerEnter(Collider other) {
 		if (other.gameObject == coin) HitACoin ();
 	}
 
 	void HitACoin() {
-		//Randomly generate a new position for the orb
-		int x = (int) Random.Range (-9.0f, 7.0f);
-		int z = (int) Random.Range (-9.0f, 7.0f);
-		coin.transform.position = new Vector3(x,-0.5f,z);
-
+		
 		//Randomly delete a floor piece
-		int floorIndex = (int)Random.Range (0.0f, floor.Length-1);
-		floor[floorIndex].GetComponent<MeshRenderer>().enabled = false;
-		floor [floorIndex].GetComponent<Collider> ().enabled = false;
+		int floorXIndex = 0;
+		int floorZIndex = 0;
+		do {
+			floorXIndex = (int)Random.Range (0.0f, 16.0f);
+			floorZIndex = (int)Random.Range (0.0f, 16.0f);
+		}while(floor[floorXIndex,floorZIndex] == null || floor[floorXIndex,floorZIndex].GetComponent<Collider> ().enabled == false);
+		floor[floorXIndex, floorZIndex].GetComponent<MeshRenderer>().enabled = false;
+		floor[floorXIndex, floorZIndex].GetComponent<Collider> ().enabled = false;
+
+		//Randomly generate a new position for the orb but not in a hole
+		int x = 0;
+		int z = 0;
+		do {
+			x = (int)Random.Range (-9.0f, 7.0f);
+			z = (int)Random.Range (-9.0f, 7.0f);
+		} while(floor [x+9, z+9] == null || floor [x+9, z+9].GetComponent<Collider> ().enabled == false);
+		coin.transform.position = new Vector3(x,-0.5f,z);
 	}
 }
