@@ -49,6 +49,7 @@ public class BallController : MonoBehaviour {
 		speed = 600.0f;
 		if (SystemInfo.deviceType == DeviceType.Handheld) speed = (speed * 70 / 100) + speed;
 
+		//Update score to default = 0
 		scoreText.GetComponent<TextMesh> ().text = "Score : 0";
 		score = 0;
 
